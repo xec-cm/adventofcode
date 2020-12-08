@@ -48,14 +48,15 @@ read_lines("data/inputdata_04.txt") %>%
     select(-cid) %>%
     mutate(unit = str_remove(hgt, "\\d+"),
            hgt = str_remove(hgt, unit),
-           across(c(pid, eyr, hgt, iyr, byr), as.numeric)) %>%
+           across(c(eyr, hgt, iyr, byr), as.numeric)) %>%
     filter(byr >= 1920 & byr <= 2002) %>%
     filter(iyr >= 2010 & iyr <= 2020) %>%
     filter(eyr >= 2020 & eyr <= 2030) %>%
     filter(ecl %in% c("amb", "blu", "brn", "gry", "grn", "hzl", "oth")) %>%
-    filter(floor(log10(pid)) + 1 == 9) %>%
+    filter(str_count(pid) == 9) %>%
     filter((unit == "cm" & hgt >= 150 & hgt <= 193) | (unit == "in" & hgt >= 59 & hgt <= 76)) %>%
-    filter(str_detect(hcl, "^#")) & length(str_split(hcl, "") %>% unlist()) == 7) %>%
+    filter(str_detect(hcl, "^#")) %>%
+    filter(str_count(hcl) == 7) %>%
     drop_na() %>%
     nrow()
 
