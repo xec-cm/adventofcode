@@ -71,8 +71,7 @@ for (it in seq_along(dat)) {
     }
 
     if (exists("r")) {
-        print(glue("result: {v1} + {v2} + {v3} = {v1 + v2 + v3}"))
-        print(glue("result: {v1} * {v2} * {v3} = {v1 * v2 * v3}"))
+        print(glue("result: {r[1] * r[2] * r[3]}"))
         break
     }
 }
